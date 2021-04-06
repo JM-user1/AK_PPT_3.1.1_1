@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "entityManagerFactory")
     private  EntityManager em;
     @Autowired
     private final UserRepository userRepository;
@@ -70,17 +70,18 @@ public class UserServiceImpl implements UserService {
     public List<User> allUsers() {
         return userRepository.findAll();
     }
-//  public void edit(Long id, User user) {
-//    User updatedUser = userRepository.getOne(id);
-//    updatedUser.setUsername(user.getUsername());
-//
-//    userRepository.saveAndFlush(updatedUser);
-//  }
+
+    public void editUser(Long id, User user) {
+    User updatedUser = findUserById(id);
+    updatedUser.setUsername(user.getUsername());
+    updatedUser.setPassword(user.getPassword());
+    userRepository.save(updatedUser);
+    }
 
     @Override
     public User getById(Long id) {
-        User user = userRepository.getOne(id);
-        System.out.println(user.getUsername());
+        User user = findUserById(id);
+        System.out.println("Имя Юзверя: "+ user.getUsername());
         return user;
     }
 
