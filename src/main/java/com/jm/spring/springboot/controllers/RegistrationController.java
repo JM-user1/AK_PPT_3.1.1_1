@@ -21,31 +21,27 @@ public class RegistrationController {
         return "/index";
     }
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+//    @GetMapping("/registration")
+//    public String registration(Model model) {
+//        model.addAttribute("userForm", new User());
+//        model.addAttribute("allRoles", userServiceImpl.allRoles());
+//        return "registration";
+//    }
 
-        return "registration";
-    }
-
-    @PostMapping()
-    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
-        }
-        if (!userServiceImpl.saveUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
-        }
-
-        userServiceImpl.saveUser(userForm);
-
-        return "redirect:/";
-    }
+//    @PostMapping()
+//    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+//
+//        if (bindingResult.hasErrors()) {
+//            return "registration";
+//        }
+//        if (!userServiceImpl.saveUser(userForm)){
+//            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+//            return "registration";
+//        }
+//
+//        userServiceImpl.saveUser(userForm);
+//
+//        return "redirect:/";
+//    }
 
 }

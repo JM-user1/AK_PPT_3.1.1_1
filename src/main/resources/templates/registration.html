@@ -11,14 +11,25 @@
     <form th:method="POST" action="#" th:action="@{/}" th:object="${userForm}">
         <h2>Registration</h2>
         <div>
-            <label for="name">Name</label>
+            <label for="name">First Name</label>
             <input type="text" th:field="*{username}" id="name"/>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" th:field="*{lastname}" id="lastName"/>
+
+            <label for="age">Age</label>
+            <input type="text" th:field="*{age}" id="age"/>
+
+            <label for="email">Email</label>
+            <input type="text" th:field="*{email}" id="email"/>
 
             <label for="password">Password</label>
             <input type="text" th:field="*{password}" id="password"/>
 
-            <label for="passwordConf">Confirm password</label>
-            <input type="text" th:field="*{passwordConfirm}" id="passwordConf"/>
+            <select class="form-select" multiple aria-label="пример множественного выбора">
+                <option th:each="role: ${allRoles}" th:text="${role.name}" th:value="${role.name}" >ADMIN</option>
+            </select>
+
         </div>
         <button type="submit">Register</button>
     </form>

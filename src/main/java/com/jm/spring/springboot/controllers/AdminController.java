@@ -1,25 +1,75 @@
 package com.jm.spring.springboot.controllers;
 
+import com.jm.spring.springboot.entity.Role;
 import com.jm.spring.springboot.entity.User;
 import com.jm.spring.springboot.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @Controller
 public class AdminController {
+    private final UserServiceImpl userServiceImpl;
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    public AdminController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+    }
 
     @GetMapping("/admin")
-    public String userList(Model model){
+    public String userList(Model model, Principal principal){
+        model.addAttribute("thisUser", userServiceImpl.findUserByName(principal.getName()));
         model.addAttribute("allUsers", userServiceImpl.allUsers());
+
+        model.addAttribute("userForm", new User());
+        model.addAttribute("allRoles", userServiceImpl.allRoles());
+
         return "admin";
     }
 
+
+//    @GetMapping("/registration")
+//    public String registration(Model model) {
+//        model.addAttribute("userForm", new User());
+//        model.addAttribute("allRoles", userServiceImpl.allRoles());
+//        return "registration";
+//    }
+
+    @PostMapping()
+    public String addUser(@ModelAttribute("userForm") User userForm, @ModelAttribute("roleForm") Role role, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin";
+        }
+        if (!userServiceImpl.saveUser(userForm)){
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+            return "admin";
+        }
+        userServiceImpl.saveUser(userForm);
+
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/saveUser")
+    public String saveUser(User user){
+        userServiceImpl.saveUser(user);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/findUserById")
+    @ResponseBody
+    public User findUserById(Long id){
+        System.out.println("===============================================================================");
+        System.out.println("***************************"+userServiceImpl.findUserById(id).getUsername());
+        System.out.println("===============================================================================");
+
+        return userServiceImpl.findUserById(id);
+    }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id){
@@ -30,13 +80,13 @@ public class AdminController {
     @GetMapping("/edit/{id}")
     public String editUser( ModelMap modelMap, @PathVariable("id") Long id){
         modelMap.addAttribute("user",userServiceImpl.getById(id));
-        return "/editUser";
+        return "/admin";
     }
 
     @PatchMapping("/edit/{id}")
     public String editUser(@ModelAttribute("user") User user, @PathVariable("id")Long id){
         userServiceImpl.editUser(id, user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 }

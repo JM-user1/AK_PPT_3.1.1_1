@@ -1,6 +1,7 @@
 package com.jm.spring.springboot.service;
 
 
+import com.jm.spring.springboot.entity.Role;
 import com.jm.spring.springboot.entity.User;
 
 import java.util.List;

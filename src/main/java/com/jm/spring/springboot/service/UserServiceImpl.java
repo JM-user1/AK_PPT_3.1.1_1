@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,8 +36,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long userId) {
-        Optional<User> userFromDB = userRepository.findById(userId);
-        return userFromDB.orElse(new User());
+      return   userRepository.getOne(userId);
+//        Optional<User> userFromDB = userRepository.findById(userId);
+//        return userFromDB.orElse(new User());
+    }
+
+    public User findUserByName(String name){
+        return  userRepository.findByUsername(name);
+    }
+
+    public Role findRoleById(Long roleId){
+        Optional<Role> roleFromDB = roleRepository.findById(roleId);
+        return roleFromDB.orElse(new Role());
     }
 
     public List<User> usergtList(Long idMin) {
@@ -46,12 +57,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-
+        User userFromDB = userRepository.findByEmail(user.getEmail());
+//        Set<Role> roleFromDB = user.getRoles();
         if (userFromDB != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+//        user.setRoles(Collections.singleton(role));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -70,6 +81,8 @@ public class UserServiceImpl implements UserService {
     public List<User> allUsers() {
         return userRepository.findAll();
     }
+
+    public List<Role> allRoles(){ return roleRepository.findAll();}
 
     public void editUser(Long id, User user) {
     User updatedUser = findUserById(id);
