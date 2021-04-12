@@ -36,9 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long userId) {
-      return   userRepository.getOne(userId);
-//        Optional<User> userFromDB = userRepository.findById(userId);
-//        return userFromDB.orElse(new User());
+//      return   userRepository.getOne(userId);
+        Optional<User> userFromDB = userRepository.findById(userId);
+        return userFromDB.orElse(new User());
     }
 
     public User findUserByName(String name){
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByEmail(user.getEmail());
+        User userFromDB = userRepository.findByUsername(user.getUsername());
 //        Set<Role> roleFromDB = user.getRoles();
         if (userFromDB != null) {
             return false;
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     public void editUser(Long id, User user) {
     User updatedUser = findUserById(id);
-    updatedUser.setUsername(user.getUsername());
+    updatedUser.setUsername(user.getEmail());
     updatedUser.setPassword(user.getPassword());
     userRepository.save(updatedUser);
     }

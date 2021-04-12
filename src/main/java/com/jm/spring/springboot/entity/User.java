@@ -1,5 +1,6 @@
 package com.jm.spring.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,12 +16,14 @@ public class User implements UserDetails {
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String username;
+  private String firstname;
   private String lastname;
   private int age;
   private String email;
+  private String username;
   private String password;
-  @ManyToMany( fetch = FetchType.EAGER)
+
+  @ManyToMany( fetch = FetchType.LAZY)
   private Set<Role> roles;
 
   public User() {
@@ -51,6 +54,14 @@ public class User implements UserDetails {
   @Override
   public String getUsername() {
     return username;
+  }
+
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
   }
 
   public String getLastname() {

@@ -41,7 +41,7 @@ public class AdminController {
 //    }
 
     @PostMapping()
-    public String addUser(@ModelAttribute("userForm") User userForm, @ModelAttribute("roleForm") Role role, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "admin";
@@ -50,6 +50,7 @@ public class AdminController {
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "admin";
         }
+        userForm.setUsername(userForm.getEmail());
         userServiceImpl.saveUser(userForm);
 
         return "redirect:/admin";
@@ -57,24 +58,24 @@ public class AdminController {
 
     @PostMapping("/saveUser")
     public String saveUser(User user){
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("user.getUsername(): "+user.getRoles());
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
         userServiceImpl.saveUser(user);
         return "redirect:/admin";
-    }
-
-    @GetMapping("/findUserById")
-    @ResponseBody
-    public User findUserById(Long id){
-        System.out.println("===============================================================================");
-        System.out.println("***************************"+userServiceImpl.findUserById(id).getUsername());
-        System.out.println("===============================================================================");
-
-        return userServiceImpl.findUserById(id);
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id){
         userServiceImpl.deleteUser(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/findUserById")
+    @ResponseBody
+    public User findUserById(Long id){
+
+        return userServiceImpl.findUserById(id);
     }
 
     @GetMapping("/edit/{id}")
