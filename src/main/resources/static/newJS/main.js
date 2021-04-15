@@ -1,8 +1,8 @@
-// var myModal = new bootstrap.Modal(document.getElementById('myModal'), options)
-// console.log(myModal);
-//  var allRoles = document.getElementById('allRoles');
-// console.dir(allRoles);
+
+
+//========================================= jQuery ===================================
 $(document).ready(function() {
+
     // let roles = $(user.roles);
     // console.log(roles);
     $('.table .eBtn').on('click', function(event) {
@@ -17,7 +17,7 @@ $(document).ready(function() {
             $('.editModalForm #modalLastName').val(user.lastname);
             $('.editModalForm #modalAge').val(user.age);
             $('.editModalForm #modalEmail').val(user.email);
-            $('.editModalForm #modalPassword').val(user.password);
+            $().val(user.password);
             // $('.editModalForm #modalRoles').val(user.modalRoles);
         });
 

@@ -56,14 +56,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(User user){
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("user.getUsername(): "+user.getRoles());
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-        userServiceImpl.saveUser(user);
-        return "redirect:/admin";
-    }
+
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id){
@@ -76,6 +69,15 @@ public class AdminController {
     public User findUserById(Long id){
 
         return userServiceImpl.findUserById(id);
+    }
+
+    @PostMapping("/saveUser")
+    public String saveUser(User user){
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("user.getUsername(): "+user.getRoles());
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+        userServiceImpl.saveUser(user);
+        return "redirect:/admin";
     }
 
     @GetMapping("/edit/{id}")

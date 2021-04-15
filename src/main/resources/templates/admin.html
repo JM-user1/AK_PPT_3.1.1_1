@@ -185,32 +185,32 @@
 
                             <div class="mb-3">
                                 <label for="modalId" class="col-form-label">ID:</label>
-                                <input type="text" class="form-control" id="modalId" name="modalId" value="" />
+                                <input type="text" class="form-control" id="modalId" name="id" value="" />
                             </div>
 
                             <div class="mb-3">
                                 <label for="modalName" class="col-form-label">User Name:</label>
-                                <input type="text" class="form-control" id="modalName" name="modalName" value="" />
+                                <input type="text" class="form-control" id="modalName" name="firstname" value="" />
                             </div>
 
                             <div class="mb-3">
                                 <label for="modalLastName" class="col-form-label">Last Name:</label>
-                                <input type="text" class="form-control" id="modalLastName" name="modalLastName" value="" />
+                                <input type="text" class="form-control" id="modalLastName" name="lastname" value="" />
                             </div>
 
                             <div class="mb-3">
                                 <label for="modalAge" class="col-form-label">Age:</label>
-                                <input type="text" class="form-control" id="modalAge" name="modalAge" value="" />
+                                <input type="text" class="form-control" id="modalAge" name="age" value="" />
                             </div>
 
                             <div class="mb-3">
                                 <label for="modalEmail" class="col-form-label">Email:</label>
-                                <input type="text" class="form-control" id="modalEmail" name="modalEmail" value="" />
+                                <input type="text" class="form-control" id="modalEmail" name="email" value="" />
                             </div>
 
                             <div class="mb-3">
                                 <label for="modalPassword" class="col-form-label">Password:</label>
-                                <input type="text" class="form-control" id="modalPassword" name="modalPassword" value="" />
+                                <input type="text" class="form-control" id="modalPassword" name="password" value="" />
                             </div>
 
 <!--                            <div class="mb-3">-->
@@ -218,9 +218,9 @@
 <!--                                <input type="text" class="form-control" id="modalRoles" name="modalRoles" value="" />-->
 <!--                            </div>-->
 
-                            <select style="max-height: 50px" class="form-select" multiple>
-                                <option th:each="role : ${allRoles}" th:value="${role.getId()}" th:text="${#strings.replace(role.getName(), 'ROLE_', '')}">ADMIN </option>
-                            </select>
+<!--                            <select style="max-height: 50px" class="form-select" multiple>-->
+<!--                                <option th:each="role : ${allRoles}" th:value="${role.getId()}" th:text="${#strings.replace(role.getName(), 'ROLE_', '')}">ADMIN </option>-->
+<!--                            </select>-->
 
 
 <!--                            <select th:field="${user.roles}" style="max-height: 50px" class="form-select" multiple  />-->
