@@ -184,8 +184,8 @@
                         <div class="modal-body">
 
                             <div class="mb-3">
-                                <label for="modalId" class="col-form-label">ID:</label>
-                                <input type="text" class="form-control" id="modalId" name="id" value="" />
+<!--                                <label for="modalId" class="col-form-label">ID:</label>-->
+                                <input  type="hidden" class="form-control" id="modalId" name="id" value="" />
                             </div>
 
                             <div class="mb-3">
@@ -218,9 +218,9 @@
 <!--                                <input type="text" class="form-control" id="modalRoles" name="modalRoles" value="" />-->
 <!--                            </div>-->
 
-<!--                            <select style="max-height: 50px" class="form-select" multiple>-->
-<!--                                <option th:each="role : ${allRoles}" th:value="${role.getId()}" th:text="${#strings.replace(role.getName(), 'ROLE_', '')}">ADMIN </option>-->
-<!--                            </select>-->
+                            <select name="roles" style="max-height: 50px" class="form-select" multiple>
+                                <option th:each="role : ${allRoles}" th:value="${role.getId()}" th:text="${#strings.replace(role.getName(), 'ROLE_', '')}">ADMIN </option>
+                            </select>
 
 
 <!--                            <select th:field="${user.roles}" style="max-height: 50px" class="form-select" multiple  />-->
